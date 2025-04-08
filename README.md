@@ -1,18 +1,13 @@
-# Welcome to React Router!
+# Social News
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This app was created using 
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+```
+npx create-react-router@latest
+```
 
-## Features
+as mentioned in this [React doc](https://react.dev/learn/creating-a-react-app).
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
 
 ## Getting Started
 
@@ -33,6 +28,14 @@ npm run dev
 ```
 
 Your application will be available at `http://localhost:5173`.
+
+
+Run unit tests using:
+
+```
+npm test
+```
+Launches the test runner in the interactive watch mode.
 
 ## Building for Production
 
@@ -82,6 +85,4 @@ Make sure to deploy the output of `npm run build`
 
 This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
----
 
-Built with ❤️ using React Router.
