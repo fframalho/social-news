@@ -1,3 +1,8 @@
+export enum ArticleState {
+    DRAFT,
+    PUBLISHED
+}
+
 export interface Article {
     id: number
     title: string
@@ -5,4 +10,5 @@ export interface Article {
     image: string
     category: string
     content: string
+    state: ArticleState
 }

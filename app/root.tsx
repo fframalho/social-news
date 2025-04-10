@@ -11,6 +11,8 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Navbar from "./components/Navbar";
+import { useEffect } from "react";
+import Footer from "./components/Footer";
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -43,22 +45,43 @@ export function Layout({ children }: { children: React.ReactNode }) {
     );
 }
 
-export default function App() {
-  const domain = import.meta.env.VITE_AUTH0_DOMAIN;
-  const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+async function loadArticlesToLocalStorage() {
+  const articlesKey = "articles";
 
-  return (
-    <Auth0Provider
-        domain={domain || ''}
-        clientId={clientId || ''}
-        authorizationParams={{
-            redirect_uri: window.location.origin
-        }}
-    >
-        <Navbar />
-        <Outlet />
-    </Auth0Provider>
-  )
+  // Check if articles are already in localStorage
+  if (!localStorage.getItem(articlesKey)) {
+      try {
+          const response = await fetch("/articles.json"); // Fetch from public/articles.json
+          const articles = await response.json();
+          localStorage.setItem(articlesKey, JSON.stringify(articles));
+          console.log("Articles loaded into localStorage.");
+      } catch (error) {
+          console.error("Failed to load articles:", error);
+      }
+  }
+}
+
+export default function App() {
+	const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+	const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+
+	useEffect(() => {
+		loadArticlesToLocalStorage();
+	}, []);
+
+	return (
+		<Auth0Provider
+			domain={domain || ''}
+			clientId={clientId || ''}
+			authorizationParams={{
+				redirect_uri: window.location.origin
+			}}
+		>
+			<Navbar />
+			<Outlet />
+      <Footer />
+		</Auth0Provider>
+	)
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
