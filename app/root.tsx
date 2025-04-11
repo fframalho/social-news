@@ -68,8 +68,7 @@ export default function App() {
     const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID
     const isTest = import.meta.env.MODE === 'e2e-test';
 
-    const Provider = isTest ? MockAuth0Provider : Auth0Provider;
-
+    const Provider = isTest ? MockAuth0Provider((window as any).CYPRESS_AUTH_USER) : Auth0Provider;
 
     useEffect(() => {
         loadArticlesToLocalStorage()

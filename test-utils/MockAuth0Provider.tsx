@@ -1,7 +1,5 @@
 import React from 'react'
-import { Auth0Context, type Auth0ContextInterface, type GetTokenSilentlyOptions } from '@auth0/auth0-react'
-
-const NAMESPACE = "https://social-news.com"
+import { Auth0Context, User, type Auth0ContextInterface, type GetTokenSilentlyOptions } from '@auth0/auth0-react'
 
 // Create a mock function that matches the expected overloads
 const mockGetAccessTokenSilently = ((
@@ -19,22 +17,18 @@ const mockGetAccessTokenSilently = ((
     return Promise.resolve('fake-access-token');
 }) as Auth0ContextInterface['getAccessTokenSilently'];
 
-const mockAuth0Context: Partial<Auth0ContextInterface> = {
-    isAuthenticated: true,
-    user: {
-        name: 'Cypress Test User',
-        email: 'test@cypress.dev',
-        picture: 'https://s.gravatar.com/avatar/4c3d30db18c7e79e27be78c175b7c0a6?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fad.png',
-        [`${NAMESPACE}/roles`]: [ 'Admin' ]
-    },
-    loginWithRedirect: () => Promise.resolve(),
-    logout: () => Promise.resolve(),
-    getAccessTokenSilently: mockGetAccessTokenSilently,
-};
 
 
-export const MockAuth0Provider = ({ children }: { children: React.ReactNode }) => {
-    return (
+export const MockAuth0Provider = (user: User) => {
+    const mockAuth0Context: Partial<Auth0ContextInterface> = {
+        isAuthenticated: true,
+        user: user,
+        loginWithRedirect: () => Promise.resolve(),
+        logout: () => Promise.resolve(),
+        getAccessTokenSilently: mockGetAccessTokenSilently,
+    }
+
+    return ({ children }: { children: React.ReactNode }) => (
         <div data-testid="mock-auth-provider">
             <Auth0Context.Provider value={mockAuth0Context as Auth0ContextInterface}>
                 {children}
