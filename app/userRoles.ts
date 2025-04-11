@@ -1,7 +1,7 @@
-import type { User } from "@auth0/auth0-react";
+import type { User } from "@auth0/auth0-react"
 
-const NAMESPACE = "https://social-news.com";
+const NAMESPACE = "https://social-news.com"
 
 export function getUserRoles(user: User | undefined): string[] {
-    return user?.[`${NAMESPACE}/roles`] || [];
+    return user?.[`${NAMESPACE}/roles`] || []
 }

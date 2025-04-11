@@ -30,12 +30,22 @@ npm run dev
 Your application will be available at `http://localhost:5173`.
 
 
+### Unit Testing
+
 Run unit tests using:
 
-```
+```bash
 npm test
 ```
 Launches the test runner in the interactive watch mode.
+
+
+If you want to check these tests' coverage, run:
+
+```bash
+npm run coverage
+```
+
 
 ## Building for Production
 

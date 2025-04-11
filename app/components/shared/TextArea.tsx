@@ -5,7 +5,7 @@ interface TextAreaProps {
     label: string
     rows: number
     value?: string
-    error?: string;
+    error?: string
 }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
@@ -26,4 +26,4 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     )
 )
 
-export default TextArea;
+export default TextArea

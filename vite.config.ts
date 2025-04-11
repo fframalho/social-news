@@ -6,10 +6,16 @@ import tsconfigPaths from "vite-tsconfig-paths";
 const isTesting = process.env.VITEST === 'true'
 
 export default defineConfig({
-  plugins: [tailwindcss(), !isTesting && reactRouter(), tsconfigPaths()],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './setupTests.ts'
-  }
+	plugins: [tailwindcss(), !isTesting && reactRouter(), tsconfigPaths()],
+	test: {
+		globals: true,
+		environment: 'jsdom',
+		setupFiles: './setupTests.ts',
+		coverage: {
+			provider: 'v8',
+			reporter: ['text', 'html', 'lcov'],
+			reportsDirectory: './coverage',
+			exclude: ['**/test-utils/**', '**/*.d.ts', 'build/**', 'app/routes.ts', '**/*.config.ts', '.react-router/**'],
+		}
+	}
 });

@@ -1,9 +1,9 @@
 import { getArticlesByUserRole } from "~/storage/storage"
 import ArticleInfo from "./ArticleInfo"
 import type { Article } from "~/models/Article"
-import { useEffect, useState } from "react";
-import Authorized from "../authorization/Authorized";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react"
+import Authorized from "../authorization/Authorized"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const ARTICLES_PER_PAGE: number = 4
 
@@ -22,20 +22,20 @@ function renderOtherArticles(otherArticles: Article[]) {
                             titleTextSize="text-xl"
                         />
                     </div>
-                );
+                )
             })}
         </div>
-    );
+    )
 }
 
 function renderEmptyArticles() {
-    return <p className="text-center mt-10">No articles available.</p>;
+    return <p className="text-center mt-10">No articles available.</p>
 }
 
 function List() {
     const [ articles, setArticles ] = useState<Article[]>([])
     const [ visibleItemsCount, setVisibleItemsCount ] = useState(ARTICLES_PER_PAGE)
-    const { user } = useAuth0();
+    const { user } = useAuth0()
 
     useEffect(() => {
         setArticles(getArticlesByUserRole(user))
@@ -66,16 +66,24 @@ function List() {
                 />
 
                 { /* Categories */ }
-
                 <div className="flex items-center gap-4 mt-20">
                     <span className="font-medium text-gray-700">Categories</span>
-                    <button className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500">
+                    <button
+                        className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500" 
+                        data-testid="marketing-button"
+                    >
                         Marketing
                     </button>
-                    <button className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500">
+                    <button
+                        className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500"
+                        data-testid="design-button"
+                    >
                         Design
                     </button>
-                    <button className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500">
+                    <button
+                        className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500"
+                        data-testid="engineering-button"
+                    >
                         Engineering
                     </button>
                 </div>
@@ -92,6 +100,7 @@ function List() {
                         <button
                             onClick={handleLoadMoreClick}
                             className="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-gray-200 rounded-sm text-sm shadow cursor-pointer"
+                            data-testid="load-more-button"
                         >
                             Load more
                         </button>

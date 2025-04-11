@@ -1,12 +1,19 @@
 
-import { useState } from "react";
-import TextArea from "../shared/TextArea";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { addNewArticle } from "~/storage/storage";
-import { ArticleState } from "~/models/Article";
-import Authorized from "../authorization/Authorized";
+import { useState } from "react"
+import TextArea from "../shared/TextArea"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { addNewArticle } from "~/storage/storage"
+import { ArticleState } from "~/models/Article"
+import Authorized from "../authorization/Authorized"
+
+const TITLE_ID = 'article-title'
+const CATEGORY_ID = 'article-category'
+const CONTENT_ID = 'content-text-area'
+const DESCRIPTION_ID = 'description-text-area'
+const IMAGE_ID = 'article-image'
+const STATE_ID = 'article-state'
 
 const schema = yup.object({
     title: yup.string().required("Title is required"),
@@ -21,12 +28,12 @@ const schema = yup.object({
         .number()
         .oneOf([ArticleState.DRAFT, ArticleState.PUBLISHED], "Please select a state for the article")
         .required()
-}).required();
+}).required()
 
-type FormValues = yup.InferType<typeof schema>;
+type FormValues = yup.InferType<typeof schema>
 
 function AddArticle() {
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null)
 
     const {
         register,
@@ -36,38 +43,36 @@ function AddArticle() {
         reset
       } = useForm<FormValues>({
         resolver: yupResolver(schema),
-      });
+      })
 
-      const onSubmit = (data: FormValues) => {
-        console.log(data);
-    
+      const onSubmit = (data: FormValues) => {    
         addNewArticle({ ...data, image: imagePreview ?? '', id: Date.now() })
 
         // Clear form
         reset()
         setImagePreview(null)
-    };
+    }
 
     const handleImageChange = (fileList: FileList) => {
         const [ file ] = fileList
         
         if (!file) {
-            return;
+            return
         }
 
-        const reader = new FileReader();
+        const reader = new FileReader()
         
         reader.onloadend = () => {
-            setImagePreview(reader.result as string);
-        };
+            setImagePreview(reader.result as string)
+        }
         
-        reader.readAsDataURL(file);
-    };
+        reader.readAsDataURL(file)
+    }
 
-    const watchImage = watch("image");
+    const watchImage = watch("image")
 
     if (watchImage) {
-        handleImageChange(watchImage);
+        handleImageChange(watchImage)
       }
 
     return (
@@ -78,11 +83,12 @@ function AddArticle() {
                     <div className="space-y-4">
                         {/* Text Input */}
                         <div>
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="article-title">Title</label>
+                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor={ TITLE_ID }>Title</label>
                             <input
-                                id="article-title"
+                                id={ TITLE_ID }
                                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Your name"
+                                data-testid={ TITLE_ID }
+                                placeholder="Your title"
                                 {...register("title")}
                             />
                             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
@@ -90,7 +96,7 @@ function AddArticle() {
 
                         {/* Description textarea */}
                         <TextArea
-                            id="description-text-area"
+                            id={ DESCRIPTION_ID }
                             label="Small description"
                             rows={ 3 }
                             {...register("description")}
@@ -99,9 +105,10 @@ function AddArticle() {
 
                         {/* Image Upload */}
                         <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="article-image">Image</label>
+                        <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor={ IMAGE_ID }>Image</label>
                         <input
-                            id="article-image"
+                            id={ IMAGE_ID }
+                            data-testid={ IMAGE_ID }
                             type="file"
                             accept="image/*"
                             className="w-full text-sm text-gray-600"
@@ -119,9 +126,10 @@ function AddArticle() {
 
                         {/* Category Select */}
                         <div>
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="article-category">Category</label>
+                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor={ CATEGORY_ID }>Category</label>
                             <select
-                                id="article-category"
+                                id={ CATEGORY_ID }
+                                data-testid={ CATEGORY_ID }
                                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 {...register("category")}
                             >
@@ -135,7 +143,8 @@ function AddArticle() {
 
                         {/* Content textarea */}
                         <TextArea
-                            id="content-text-area"
+                            id={ CONTENT_ID }
+                            data-testid={ CONTENT_ID }
                             label="Content"
                             rows={ 10 }
                             {...register("content")}
@@ -144,10 +153,11 @@ function AddArticle() {
 
                         {/* State Select */}
                         <div>
-                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="article-state">Save article as:</label>
+                            <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor={ STATE_ID }>Save article as:</label>
                             <select
-                                id="article-state"
+                                id={ STATE_ID }
                                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                data-testid={ STATE_ID }
                                 {...register("state")}
                             >
                                 <option value={ -1 }>Select state</option>
@@ -164,7 +174,7 @@ function AddArticle() {
                 </div>
             </form>
         </Authorized>
-    );
-};
+    )
+}
 
-export default AddArticle;
+export default AddArticle
