@@ -46,6 +46,29 @@ If you want to check these tests' coverage, run:
 npm run coverage
 ```
 
+### E2E Testing
+
+Before running the Cypress tests, you need to start the development server with a different command from the one mentioned above:
+
+```bash
+npm run dev:e2e-test
+```
+
+Run cypress E2E tests on the console:
+
+``` 
+npx cypress run
+```
+
+OR
+
+Open cypress in the interactive GUI. 
+*Saves snapshots of each step and allows for step by step visual debugging.*:
+
+```
+npx cypress open
+```
+
 
 ## Building for Production
 
