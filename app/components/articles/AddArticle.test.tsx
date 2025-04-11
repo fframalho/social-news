@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import AddArticle from './AddArticle'
+import { MemoryRouter } from 'react-router'
 
 // Mock Authorized component
 vi.mock('../authorization/Authorized', () => ({
@@ -15,14 +16,23 @@ vi.mock('~/storage/storage', () => ({
 const mockFile = new File(['(image content)'], 'example.png', { type: 'image/png' })
 
 describe('AddArticle', () => {
+
+    function renderWithRouter() {
+        render(
+          <MemoryRouter>
+            <AddArticle />
+          </MemoryRouter>
+        )
+    }
+
     test('should have title', () => {
-        render(<AddArticle />)
+        renderWithRouter()
         expect(screen.getByTestId('add-article-title')).toHaveTextContent(/add article/i)
 
     })
 
     test('should show validation errors when submitting empty form', async () => {
-        render(<AddArticle />)
+        renderWithRouter()
         fireEvent.click(screen.getByRole('button', { name: /submit/i }))
 
         await waitFor(() => {
@@ -36,7 +46,7 @@ describe('AddArticle', () => {
     })
 
     test('should show image preview when uploading an image', async () => {
-        render(<AddArticle />)
+        renderWithRouter()
 
         const input = screen.getByLabelText(/image/i)
 
@@ -54,7 +64,7 @@ describe('AddArticle', () => {
     test('should submit valid form', async () => {
         const { addNewArticle } = await import('~/storage/storage')
 
-        render(<AddArticle />)
+        renderWithRouter()
 
         fireEvent.change(screen.getByTestId('article-title'), {
             target: { value: 'Test Title' }

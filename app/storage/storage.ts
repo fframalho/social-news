@@ -7,7 +7,7 @@ const LOCAL_ARTICLES_KEY = "articles"
 export function addNewArticle(article: Article) {
     const articlesList = getArticles()
 
-    articlesList.push(article)
+    articlesList.unshift(article)
     localStorage.setItem(LOCAL_ARTICLES_KEY, JSON.stringify(articlesList))
 }
 

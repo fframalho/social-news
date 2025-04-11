@@ -13,6 +13,7 @@ import { Auth0Provider } from "@auth0/auth0-react"
 import Navbar from "./components/Navbar"
 import { useEffect } from "react"
 import Footer from "./components/Footer"
+import { MockAuth0Provider } from "test-utils/MockAuth0Provider"
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -65,23 +66,29 @@ async function loadArticlesToLocalStorage() {
 export default function App() {
     const domain = import.meta.env.VITE_AUTH0_DOMAIN
     const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID
+    const isTest = import.meta.env.MODE === 'e2e-test';
+
+    const Provider = isTest ? MockAuth0Provider : Auth0Provider;
+
 
     useEffect(() => {
         loadArticlesToLocalStorage()
     }, [])
 
     return (
-        <Auth0Provider
-            domain={domain || ''}
-            clientId={clientId || ''}
-            authorizationParams={{
-                redirect_uri: window.location.origin
-            }}
+        <Provider
+            {...(!isTest && {
+                domain: domain || '',
+                clientId: clientId || '',
+                authorizationParams: {
+                    redirect_uri: window.location.origin
+                }
+            })}
         >
             <Navbar />
             <Outlet />
             <Footer />
-        </Auth0Provider>
+        </Provider>
     )
 }
 

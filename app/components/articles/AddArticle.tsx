@@ -7,6 +7,7 @@ import * as yup from "yup"
 import { addNewArticle } from "~/storage/storage"
 import { ArticleState } from "~/models/Article"
 import Authorized from "../authorization/Authorized"
+import { useNavigate } from "react-router"
 
 const TITLE_ID = 'article-title'
 const CATEGORY_ID = 'article-category'
@@ -34,6 +35,7 @@ type FormValues = yup.InferType<typeof schema>
 
 function AddArticle() {
     const [imagePreview, setImagePreview] = useState<string | null>(null)
+    const navigate = useNavigate()
 
     const {
         register,
@@ -48,9 +50,7 @@ function AddArticle() {
       const onSubmit = (data: FormValues) => {    
         addNewArticle({ ...data, image: imagePreview ?? '', id: Date.now() })
 
-        // Clear form
-        reset()
-        setImagePreview(null)
+        navigate('/articles/list', { replace: true })
     }
 
     const handleImageChange = (fileList: FileList) => {
@@ -168,7 +168,11 @@ function AddArticle() {
                         </div>
                     </div>
 
-                    <button type="submit" className="w-32 py-2 px-4 bg-gray-600 text-gray-200 text-sm rounded-sm hover:bg-gray-700 transition cursor-pointer">
+                    <button
+                        type="submit"
+                        className="w-32 py-2 px-4 bg-gray-600 text-gray-200 text-sm rounded-sm hover:bg-gray-700 transition cursor-pointer"
+                        data-testid="submit-article-button"
+                    >
                         Submit
                     </button>
                 </div>
