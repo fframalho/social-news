@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
     tseslint.configs.recommendedTypeChecked,
-    { ignores: ['dist', '*.js'] },
+    { ignores: ['build', '.react-router', '*.js'] },
     {
         languageOptions: {
             parserOptions: {
