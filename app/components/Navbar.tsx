@@ -1,12 +1,12 @@
-import { useAuth0 } from "@auth0/auth0-react"
-import { Link } from "react-router"
-import LoginButton from "./authentication/Login"
-import Logout from "./authentication/Logout"
-import React, { useEffect, useRef, useState } from "react"
+import { useAuth0 } from '@auth0/auth0-react'
+import { Link } from 'react-router'
+import LoginButton from './authentication/Login'
+import Logout from './authentication/Logout'
+import React, { useEffect, useRef, useState } from 'react'
 
 function Navbar() {
     const { isAuthenticated, isLoading, user } = useAuth0()
-    const [ userMenuOpen, setUserMenuOpen] = useState(false)
+    const [userMenuOpen, setUserMenuOpen] = useState(false)
     const userMenuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -16,10 +16,10 @@ function Navbar() {
             }
         }
 
-        document.addEventListener("mousedown", handleClickOutside)
+        document.addEventListener('mousedown', handleClickOutside)
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
+            document.removeEventListener('mousedown', handleClickOutside)
         }
     }, [])
 
@@ -32,9 +32,9 @@ function Navbar() {
                     </Link>
                 </div>
 
-                { !isLoading && 
+                {!isLoading && (
                     <div className="flex items-center space-x-4 relative" ref={userMenuRef}>
-                        { isAuthenticated ? (
+                        {isAuthenticated ? (
                             <React.Fragment>
                                 <div className="">
                                     <Link
@@ -64,7 +64,7 @@ function Navbar() {
                             <LoginButton />
                         )}
                     </div>
-                }
+                )}
             </div>
         </nav>
     )

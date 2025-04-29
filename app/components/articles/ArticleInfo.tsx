@@ -1,4 +1,4 @@
-import type { Article } from "~/models/Article"
+import type { Article } from '~/models/Article'
 
 interface ArticleInfoProps {
     article: Article
@@ -9,28 +9,37 @@ interface ArticleInfoProps {
     descriptionTextSize: string
 }
 
-function ArticleInfo({ article, buttonClassNames, descriptionTextSize, imageFirst, imageHeight, titleTextSize }: ArticleInfoProps) {
+function ArticleInfo({
+    article,
+    buttonClassNames,
+    descriptionTextSize,
+    imageFirst,
+    imageHeight,
+    titleTextSize,
+}: ArticleInfoProps) {
     return (
-        <div className={ `flex flex-col space-y-4 md:space-y-0 md:space-x-4 ${imageFirst ? 'md:flex-row-reverse' : 'md:flex-row'}` }>
+        <div
+            className={`flex flex-col space-y-4 md:space-y-0 md:space-x-4 ${imageFirst ? 'md:flex-row-reverse' : 'md:flex-row'}`}
+        >
             <div className="flex flex-col flex-1 p-4 justify-between">
                 <div>
                     <h1
-                        className={ `w-full ${titleTextSize} font-bold text-gray-800 mb-6` }
+                        className={`w-full ${titleTextSize} font-bold text-gray-800 mb-6`}
                         data-testid="article-info-title"
                     >
-                        { article.title }
+                        {article.title}
                     </h1>
 
                     <p
-                        className={ `${descriptionTextSize} font-bold text-gray-600 mb-4` }
+                        className={`${descriptionTextSize} font-bold text-gray-600 mb-4`}
                         data-testid="article-info-description"
                     >
-                        { article.description }
+                        {article.description}
                     </p>
                 </div>
 
                 <button
-                    className={ `${buttonClassNames} bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer` }
+                    className={`${buttonClassNames} bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer`}
                     data-testid="read-more-button"
                 >
                     Read More
@@ -47,6 +56,5 @@ function ArticleInfo({ article, buttonClassNames, descriptionTextSize, imageFirs
         </div>
     )
 }
-
 
 export default ArticleInfo

@@ -5,7 +5,7 @@ import Navbar from './Navbar'
 const mockUseAuth0 = {
     isAuthenticated: false,
     isLoading: false,
-    user: null
+    user: null,
 }
 
 vi.mock('@auth0/auth0-react', () => ({
@@ -26,12 +26,15 @@ vi.mock('react-router', async () => {
     const actual = await vi.importActual<typeof import('react-router')>('react-router')
     return {
         ...actual,
-        Link: ({ to, children, ...props }: any) => <a href={to} {...props}>{children}</a>,
+        Link: ({ to, children, ...props }: any) => (
+            <a href={to} {...props}>
+                {children}
+            </a>
+        ),
     }
 })
 
 describe('Navbar', () => {
-
     beforeEach(() => {
         mockUseAuth0.isAuthenticated = false
         mockUseAuth0.isLoading = false

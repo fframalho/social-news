@@ -1,13 +1,12 @@
 # Social News
 
-This app was created using 
+This app was created using
 
 ```
 npx create-react-router@latest
 ```
 
 as mentioned in this [React doc](https://react.dev/learn/creating-a-react-app).
-
 
 ## Getting Started
 
@@ -29,7 +28,6 @@ npm run dev
 
 Your application will be available at `http://localhost:5173`.
 
-
 ### Unit Testing
 
 Run unit tests using:
@@ -37,8 +35,8 @@ Run unit tests using:
 ```bash
 npm test
 ```
-Launches the test runner in the interactive watch mode.
 
+Launches the test runner in the interactive watch mode.
 
 If you want to check these tests' coverage, run:
 
@@ -56,19 +54,18 @@ npm run dev:e2e-test
 
 Run cypress E2E tests on the console:
 
-``` 
+```
 npx cypress run
 ```
 
 OR
 
-Open cypress in the interactive GUI. 
-*Saves snapshots of each step and allows for step by step visual debugging.*:
+Open cypress in the interactive GUI.
+_Saves snapshots of each step and allows for step by step visual debugging._:
 
 ```
 npx cypress open
 ```
-
 
 ## Building for Production
 
@@ -117,5 +114,3 @@ Make sure to deploy the output of `npm run build`
 ## Styling
 
 This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
-

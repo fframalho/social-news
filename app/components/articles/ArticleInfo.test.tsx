@@ -8,11 +8,10 @@ const mockArticle = {
     description: 'Short description for article.',
     image: 'https://example.com/image.jpg',
     category: 'engineering',
-    state: 1
+    state: 1,
 }
 
 describe('ArticleInfo', () => {
-
     test('should render title, description and image', () => {
         render(
             <ArticleInfo
@@ -21,7 +20,7 @@ describe('ArticleInfo', () => {
                 imageHeight="h-64"
                 titleTextSize="text-2xl"
                 descriptionTextSize="text-base"
-            />
+            />,
         )
 
         expect(screen.getByTestId('article-info-title')).toBeInTheDocument()
@@ -39,7 +38,7 @@ describe('ArticleInfo', () => {
                 titleTextSize="text-2xl"
                 descriptionTextSize="text-base"
                 imageFirst
-            />
+            />,
         )
 
         const wrapper = container.firstChild as HTMLElement
@@ -55,7 +54,7 @@ describe('ArticleInfo', () => {
                 imageHeight="h-64"
                 titleTextSize="text-3xl"
                 descriptionTextSize="text-sm"
-            />
+            />,
         )
 
         const title = screen.getByTestId('article-info-title')
@@ -75,7 +74,7 @@ describe('ArticleInfo', () => {
                 imageHeight="h-64"
                 titleTextSize="text-2xl"
                 descriptionTextSize="text-base"
-            />
+            />,
         )
 
         const button = screen.getByTestId('read-more-button')

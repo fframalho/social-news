@@ -1,6 +1,6 @@
 export enum ArticleState {
     DRAFT,
-    PUBLISHED
+    PUBLISHED,
 }
 
 export interface Article {

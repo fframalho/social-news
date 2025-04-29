@@ -4,22 +4,21 @@ import Home from './Home'
 // Mocks Auth0
 const mockLoginWithRedirect = vi.fn()
 const mockUseAuth0 = {
-  isAuthenticated: false,
-  isLoading: false,
-  loginWithRedirect: mockLoginWithRedirect,
+    isAuthenticated: false,
+    isLoading: false,
+    loginWithRedirect: mockLoginWithRedirect,
 }
 
 vi.mock('@auth0/auth0-react', () => ({
-    useAuth0: () => mockUseAuth0
+    useAuth0: () => mockUseAuth0,
 }))
 
 // Mock List component
 vi.mock('./articles/List', () => ({
-    default: () => <div data-testid="article-list">[Mocked Article List]</div>
+    default: () => <div data-testid="article-list">[Mocked Article List]</div>,
 }))
 
 describe('Home', () => {
-
     beforeEach(() => {
         mockLoginWithRedirect.mockReset()
     })

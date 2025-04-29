@@ -1,8 +1,8 @@
-import type { User } from "@auth0/auth0-react"
-import { ArticleState, type Article } from "~/models/Article"
-import { getUserRoles } from "~/userRoles"
+import type { User } from '@auth0/auth0-react'
+import { ArticleState, type Article } from '~/models/Article'
+import { getUserRoles } from '~/userRoles'
 
-const LOCAL_ARTICLES_KEY = "articles"
+const LOCAL_ARTICLES_KEY = 'articles'
 
 export function addNewArticle(article: Article) {
     const articlesList = getArticles()
@@ -14,12 +14,12 @@ export function addNewArticle(article: Article) {
 export function getArticlesByUserRole(user: User | undefined) {
     const allArticles = getArticles()
     const roles = getUserRoles(user)
-    
+
     if (roles.includes('Admin')) {
         return allArticles
     }
 
-    return allArticles.filter(article => article.state === ArticleState.PUBLISHED)
+    return allArticles.filter((article) => article.state === ArticleState.PUBLISHED)
 }
 
 function getArticles(): Article[] {

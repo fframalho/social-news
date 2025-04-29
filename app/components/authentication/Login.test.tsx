@@ -6,12 +6,11 @@ const mockLoginWithRedirect = vi.fn()
 
 vi.mock('@auth0/auth0-react', () => ({
     useAuth0: () => ({
-        loginWithRedirect: mockLoginWithRedirect
-    })
+        loginWithRedirect: mockLoginWithRedirect,
+    }),
 }))
 
 describe('LoginButton', () => {
-
     beforeEach(() => {
         mockLoginWithRedirect.mockClear()
     })

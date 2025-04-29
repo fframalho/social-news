@@ -1,9 +1,9 @@
-import { getArticlesByUserRole } from "~/storage/storage"
-import ArticleInfo from "./ArticleInfo"
-import type { Article } from "~/models/Article"
-import { useEffect, useState } from "react"
-import Authorized from "../authorization/Authorized"
-import { useAuth0 } from "@auth0/auth0-react"
+import { getArticlesByUserRole } from '~/storage/storage'
+import ArticleInfo from './ArticleInfo'
+import type { Article } from '~/models/Article'
+import { useEffect, useState } from 'react'
+import Authorized from '../authorization/Authorized'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const ARTICLES_PER_PAGE: number = 4
 
@@ -33,8 +33,8 @@ function renderEmptyArticles() {
 }
 
 function List() {
-    const [ articles, setArticles ] = useState<Article[]>([])
-    const [ visibleItemsCount, setVisibleItemsCount ] = useState(ARTICLES_PER_PAGE)
+    const [articles, setArticles] = useState<Article[]>([])
+    const [visibleItemsCount, setVisibleItemsCount] = useState(ARTICLES_PER_PAGE)
     const { user } = useAuth0()
 
     useEffect(() => {
@@ -45,16 +45,16 @@ function List() {
         return renderEmptyArticles()
     }
 
-    const [ mainArticle, ...otherArticles ] = articles
+    const [mainArticle, ...otherArticles] = articles
     const otherArticlesToShow = otherArticles.slice(0, visibleItemsCount)
     const hasMoreArticlesToLoad = visibleItemsCount < otherArticles.length
 
     const handleLoadMoreClick = () => {
         setVisibleItemsCount((previousValue) => previousValue + ARTICLES_PER_PAGE)
     }
-    
+
     return (
-        <Authorized authorizedRoles={ ['Admin', 'Regular'] }>
+        <Authorized authorizedRoles={['Admin', 'Regular']}>
             <div className="max-w-screen-xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-2xl space-y-6">
                 {/* Main Article */}
                 <ArticleInfo
@@ -65,11 +65,11 @@ function List() {
                     titleTextSize="text-3xl"
                 />
 
-                { /* Categories */ }
+                {/* Categories */}
                 <div className="flex items-center gap-4 mt-20">
                     <span className="font-medium text-gray-700">Categories</span>
                     <button
-                        className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500" 
+                        className="px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm hover:bg-gray-100 text-gray-500"
                         data-testid="marketing-button"
                     >
                         Marketing
@@ -88,14 +88,11 @@ function List() {
                     </button>
                 </div>
 
-            
                 {/* Other Articles */}
-                {
-                    renderOtherArticles(otherArticlesToShow)
-                }
+                {renderOtherArticles(otherArticlesToShow)}
 
                 {/* Load More Button */}
-                { hasMoreArticlesToLoad && (
+                {hasMoreArticlesToLoad && (
                     <div className="flex justify-center mt-6">
                         <button
                             onClick={handleLoadMoreClick}
@@ -109,7 +106,6 @@ function List() {
             </div>
         </Authorized>
     )
-
 }
 
 export default List

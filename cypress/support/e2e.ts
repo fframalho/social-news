@@ -19,6 +19,6 @@ import './commands'
 Cypress.on('uncaught:exception', (err) => {
     if (err.message.includes('Hydration failed')) {
         // Prevent React hydration errors from failing tests
-        return false;
+        return false
     }
 })

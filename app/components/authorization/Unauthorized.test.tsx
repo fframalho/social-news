@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react'
 import Unauthorized from './Unauthorized'
 
 describe('Unauthorized', () => {
-
     test('should render access denied message', () => {
         render(<Unauthorized />)
 

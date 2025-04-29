@@ -4,7 +4,7 @@ import { ArticleState } from '~/models/Article'
 
 // Mock getUserRoles
 vi.mock('~/userRoles', () => ({
-    getUserRoles: (user: any) => user?.roles ?? []
+    getUserRoles: (user: any) => user?.roles ?? [],
 }))
 
 const mockArticle = {
@@ -14,14 +14,14 @@ const mockArticle = {
     content: 'Content',
     image: 'img.jpg',
     category: 'design',
-    state: ArticleState.PUBLISHED
+    state: ArticleState.PUBLISHED,
 }
 
 const draftArticle = {
     ...mockArticle,
     id: 2,
     title: 'Draft',
-    state: ArticleState.DRAFT
+    state: ArticleState.DRAFT,
 }
 
 const STORAGE_KEY = 'articles'

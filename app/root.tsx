@@ -1,31 +1,24 @@
-import {
-    isRouteErrorResponse,
-    Links,
-    Meta,
-    Outlet,
-    Scripts,
-    ScrollRestoration,
-} from "react-router"
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 
-import type { Route } from "./+types/root"
-import "./app.css"
-import { Auth0Provider } from "@auth0/auth0-react"
-import Navbar from "./components/Navbar"
-import { useEffect } from "react"
-import Footer from "./components/Footer"
-import { MockAuth0Provider } from "test-utils/MockAuth0Provider"
+import type { Route } from './+types/root'
+import './app.css'
+import { Auth0Provider } from '@auth0/auth0-react'
+import Navbar from './components/Navbar'
+import { useEffect } from 'react'
+import Footer from './components/Footer'
+import { MockAuth0Provider } from 'test-utils/MockAuth0Provider'
 
 export const links: Route.LinksFunction = () => [
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossOrigin: 'anonymous',
     },
     {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-    }
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
+    },
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -47,18 +40,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 async function loadArticlesToLocalStorage() {
-    const articlesKey = "articles"
+    const articlesKey = 'articles'
 
     // Check if articles are already in localStorage
     if (!localStorage.getItem(articlesKey)) {
         try {
-            const response = await fetch("/articles.json")
+            const response = await fetch('/articles.json')
             const articles = await response.json()
 
             localStorage.setItem(articlesKey, JSON.stringify(articles))
-            console.log("Articles loaded into localStorage.")
+            console.log('Articles loaded into localStorage.')
         } catch (error) {
-            console.error("Failed to load articles:", error)
+            console.error('Failed to load articles:', error)
         }
     }
 }
@@ -66,9 +59,9 @@ async function loadArticlesToLocalStorage() {
 export default function App() {
     const domain = import.meta.env.VITE_AUTH0_DOMAIN
     const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID
-    const isTest = import.meta.env.MODE === 'e2e-test';
+    const isTest = import.meta.env.MODE === 'e2e-test'
 
-    const Provider = isTest ? MockAuth0Provider((window as any).CYPRESS_AUTH_USER) : Auth0Provider;
+    const Provider = isTest ? MockAuth0Provider((window as any).CYPRESS_AUTH_USER) : Auth0Provider
 
     useEffect(() => {
         loadArticlesToLocalStorage()
@@ -80,8 +73,8 @@ export default function App() {
                 domain: domain || '',
                 clientId: clientId || '',
                 authorizationParams: {
-                    redirect_uri: window.location.origin
-                }
+                    redirect_uri: window.location.origin,
+                },
             })}
         >
             <Navbar />
@@ -92,16 +85,13 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-    let message = "Oops!"
-    let details = "An unexpected error occurred."
+    let message = 'Oops!'
+    let details = 'An unexpected error occurred.'
     let stack: string | undefined
 
     if (isRouteErrorResponse(error)) {
-        message = error.status === 404 ? "404" : "Error"
-        details =
-            error.status === 404
-                ? "The requested page could not be found."
-                : error.statusText || details
+        message = error.status === 404 ? '404' : 'Error'
+        details = error.status === 404 ? 'The requested page could not be found.' : error.statusText || details
     } else if (import.meta.env.DEV && error && error instanceof Error) {
         details = error.message
         stack = error.stack

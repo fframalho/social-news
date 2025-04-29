@@ -3,10 +3,9 @@ import { getUserRoles } from './userRoles'
 const NAMESPACE = 'https://social-news.com'
 
 describe('userRoles', () => {
-
     test('should return roles array if user has roles claim', () => {
         const user = {
-            [`${NAMESPACE}/roles`]: ['Admin', 'Regular']
+            [`${NAMESPACE}/roles`]: ['Admin', 'Regular'],
         }
         const roles = getUserRoles(user)
 
@@ -22,7 +21,7 @@ describe('userRoles', () => {
     test('should return empty array if user has no roles claim', () => {
         const user = {
             name: 'Admin User',
-            email: 'admin@example.com'
+            email: 'admin@example.com',
         }
 
         const roles = getUserRoles(user)

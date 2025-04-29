@@ -4,18 +4,18 @@ import { Navigate } from 'react-router'
 
 // Mock Auth0
 const mockUseAuth0 = {
-  isAuthenticated: true,
-  isLoading: false,
-  user: { email: 'test@example.com' },
+    isAuthenticated: true,
+    isLoading: false,
+    user: { email: 'test@example.com' },
 }
 
 vi.mock('@auth0/auth0-react', () => ({
-    useAuth0: () => mockUseAuth0
+    useAuth0: () => mockUseAuth0,
 }))
 
 // Mock getUserRoles
 vi.mock('~/userRoles', () => ({
-    getUserRoles: (user: any) => user?.roles ?? []
+    getUserRoles: (user: any) => user?.roles ?? [],
 }))
 
 // Mock <Navigate> to inspect navigation
@@ -24,16 +24,19 @@ vi.mock('react-router', async () => {
 
     return {
         ...actual,
-        Navigate: ({ to }: { to: string }) => <div data-testid="navigate">{to}</div>
+        Navigate: ({ to }: { to: string }) => <div data-testid="navigate">{to}</div>,
     }
 })
 
 describe('Authorized', () => {
-
     test('should show loading when isLoading is true', () => {
         mockUseAuth0.isLoading = true
-        
-        render(<Authorized authorizedRoles={['Admin']}><div>Content</div></Authorized>)
+
+        render(
+            <Authorized authorizedRoles={['Admin']}>
+                <div>Content</div>
+            </Authorized>,
+        )
         expect(screen.getByText(/loading/i)).toBeInTheDocument()
     })
 
@@ -44,7 +47,7 @@ describe('Authorized', () => {
         render(
             <Authorized authorizedRoles={['Admin']}>
                 <div>Content</div>
-            </Authorized>
+            </Authorized>,
         )
         expect(screen.getByTestId('navigate')).toHaveTextContent('/unauthorized')
     })
@@ -56,7 +59,7 @@ describe('Authorized', () => {
         render(
             <Authorized authorizedRoles={['Admin']}>
                 <div>Content</div>
-            </Authorized>
+            </Authorized>,
         )
         expect(screen.getByTestId('navigate')).toHaveTextContent('/unauthorized')
     })
@@ -67,7 +70,7 @@ describe('Authorized', () => {
         render(
             <Authorized authorizedRoles={['Admin']}>
                 <div>Content</div>
-            </Authorized>
+            </Authorized>,
         )
         expect(screen.getByText('Content')).toBeInTheDocument()
     })

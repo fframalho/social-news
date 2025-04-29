@@ -1,6 +1,5 @@
 describe('Create Article Test', () => {
-
-    const NAMESPACE_ROLES = "https://social-news.com"
+    const NAMESPACE_ROLES = 'https://social-news.com'
 
     it('regular user should not see DRAFT articles', () => {
         cy.intercept('GET', '/articles.json').as('getArticles')
@@ -11,9 +10,9 @@ describe('Create Article Test', () => {
                     name: 'Cypress Regular User',
                     email: 'regular@cypress.dev',
                     picture: '',
-                    [`${NAMESPACE_ROLES}/roles`]: ['Regular']
+                    [`${NAMESPACE_ROLES}/roles`]: ['Regular'],
                 }
-            }
+            },
         })
 
         cy.wait('@getArticles').its('response.statusCode').should('eq', 304)

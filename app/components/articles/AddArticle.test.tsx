@@ -9,26 +9,24 @@ vi.mock('../authorization/Authorized', () => ({
 
 // Mock storage function
 vi.mock('~/storage/storage', () => ({
-    addNewArticle: vi.fn()
+    addNewArticle: vi.fn(),
 }))
 
 // Mock image
 const mockFile = new File(['(image content)'], 'example.png', { type: 'image/png' })
 
 describe('AddArticle', () => {
-
     function renderWithRouter() {
         render(
-          <MemoryRouter>
-            <AddArticle />
-          </MemoryRouter>
+            <MemoryRouter>
+                <AddArticle />
+            </MemoryRouter>,
         )
     }
 
     test('should have title', () => {
         renderWithRouter()
         expect(screen.getByTestId('add-article-title')).toHaveTextContent(/add article/i)
-
     })
 
     test('should show validation errors when submitting empty form', async () => {
@@ -52,8 +50,8 @@ describe('AddArticle', () => {
 
         fireEvent.change(input, {
             target: {
-                files: [mockFile]
-            }
+                files: [mockFile],
+            },
         })
 
         await waitFor(() => {
@@ -67,29 +65,29 @@ describe('AddArticle', () => {
         renderWithRouter()
 
         fireEvent.change(screen.getByTestId('article-title'), {
-            target: { value: 'Test Title' }
+            target: { value: 'Test Title' },
         })
 
         fireEvent.change(screen.getByTestId('description-text-area'), {
-            target: { value: 'Short desc' }
+            target: { value: 'Short desc' },
         })
 
         fireEvent.change(screen.getByTestId('article-image'), {
             target: {
                 files: [mockFile],
-            }
+            },
         })
 
         fireEvent.change(screen.getByTestId('article-category'), {
-            target: { value: 'engineering' }
+            target: { value: 'engineering' },
         })
 
         fireEvent.change(screen.getByTestId('content-text-area'), {
-            target: { value: 'This is the article content.' }
+            target: { value: 'This is the article content.' },
         })
 
         fireEvent.change(screen.getByTestId('article-state'), {
-            target: { value: '1' }
+            target: { value: '1' },
         })
 
         fireEvent.click(screen.getByRole('button', { name: /submit/i }))

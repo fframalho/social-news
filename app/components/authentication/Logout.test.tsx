@@ -6,12 +6,11 @@ const mockLogout = vi.fn()
 
 vi.mock('@auth0/auth0-react', () => ({
     useAuth0: () => ({
-        logout: mockLogout
-    })
+        logout: mockLogout,
+    }),
 }))
 
 describe('Logout', () => {
-
     beforeEach(() => {
         mockLogout.mockClear()
     })
@@ -34,7 +33,7 @@ describe('Logout', () => {
 
         expect(mockLogout).toHaveBeenCalledTimes(1)
         expect(mockLogout).toHaveBeenCalledWith({
-            logoutParams: { returnTo: window.location.origin }
+            logoutParams: { returnTo: window.location.origin },
         })
     })
 })
