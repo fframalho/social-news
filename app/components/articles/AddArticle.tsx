@@ -43,7 +43,6 @@ function AddArticle() {
         handleSubmit,
         formState: { errors },
         watch,
-        reset,
     } = useForm<FormValues>({
         resolver: yupResolver(schema),
     })

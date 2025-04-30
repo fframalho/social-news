@@ -14,7 +14,7 @@
         "prettier:check": "prettier -c .",
         "prettier:format": "prettier -w .",
         "lint": "eslint .",
-        "lint:fix": "eslint --fix ."
+        "lint:fix": "eslint . --fix"
     },
     "dependencies": {
         "@auth0/auth0-react": "^2.3.0",
